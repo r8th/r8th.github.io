@@ -81,8 +81,29 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (detailContainer) {
         // We are on project.html
         loadProjectDetail();
+    } else if (document.getElementById('contact-form')) {
+        // We are on contact.html
+        setupContactForm();
     }
 });
+
+function setupContactForm() {
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        const subject = `Contact from ${name}`;
+        const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+        const mailtoLink = `mailto:17rogrady@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailtoLink;
+    });
+}
 
 function renderProjectGrid() {
     const grid = document.getElementById('project-grid');
