@@ -27,9 +27,9 @@ const projects = [
         title: "2003 BMW E46 M3",
         description: "High fidelity 3D model of the BMW E46 M3.",
         tags: ["3D Modelling", "Automotive"],
-        thumbnail: "Projects/2003 BMW E46 M3/IMGs/rogrady_2003BMWe46M3_01.png",
+        thumbnail: "Projects/2003%20BMW%20E46%20M3/IMGs/rogrady_2003BMWe46M3_01.png",
         gallery: [
-            { type: "image", src: "Projects/2003 BMW E46 M3/IMGs/rogrady_2003BMWe46M3_01.png" }
+            { type: "image", src: "Projects/2003%20BMW%20E46%20M3/IMGs/rogrady_2003BMWe46M3_01.png" }
         ],
         fullDescription: `
             A highly detailed 3D render of the 2003 BMW E46 M3. Focus on realistic materials and lighting.
@@ -40,12 +40,12 @@ const projects = [
         title: "Eastern White Pine Environment",
         description: "Realistic environment art showcasing eastern white pines.",
         tags: ["Environment Art", "Unreal Engine"],
-        thumbnail: "Projects/Eastern White Pine Environment/IMGs/HighresScreenshot00028.png",
+        thumbnail: "Projects/Eastern%20White%20Pine%20Environment/IMGs/HighresScreenshot00028.png",
         gallery: [
-            { type: "video", src: "Projects/Eastern White Pine Environment/VIDs/rogrady2_CHAR_Rigging_Animation.mp4" },
-            { type: "image", src: "Projects/Eastern White Pine Environment/IMGs/HighresScreenshot00027.png" },
-            { type: "image", src: "Projects/Eastern White Pine Environment/IMGs/HighresScreenshot00028.png" },
-            { type: "image", src: "Projects/Eastern White Pine Environment/IMGs/rogrady2_CHAR_Rigging_Animation.png" }
+            { type: "video", src: "Projects/Eastern%20White%20Pine%20Environment/VIDs/rogrady2_CHAR_Rigging_Animation.mp4" },
+            { type: "image", src: "Projects/Eastern%20White%20Pine%20Environment/IMGs/HighresScreenshot00027.png" },
+            { type: "image", src: "Projects/Eastern%20White%20Pine%20Environment/IMGs/HighresScreenshot00028.png" },
+            { type: "image", src: "Projects/Eastern%20White%20Pine%20Environment/IMGs/rogrady2_CHAR_Rigging_Animation.png" }
         ],
         fullDescription: `
             Created an immersive forest environment featuring the Eastern White Pine.
@@ -57,12 +57,12 @@ const projects = [
         title: "Otto's Odyssey",
         description: "An adventurous journey through stylized worlds.",
         tags: ["Game Dev", "Stylized"],
-        thumbnail: "Projects/Otto's Odyssey/IMGs/HighresScreenshot00003.png",
+        thumbnail: "Projects/Otto's%20Odyssey/IMGs/HighresScreenshot00003.png",
         gallery: [
-            { type: "image", src: "Projects/Otto's Odyssey/IMGs/HighresScreenshot00003.png" },
-            { type: "image", src: "Projects/Otto's Odyssey/IMGs/HighresScreenshot00004.png" },
-            { type: "image", src: "Projects/Otto's Odyssey/IMGs/HighresScreenshot00010.png" },
-            { type: "image", src: "Projects/Otto's Odyssey/IMGs/modbashkit.png" }
+            { type: "image", src: "Projects/Otto's%20Odyssey/IMGs/HighresScreenshot00003.png" },
+            { type: "image", src: "Projects/Otto's%20Odyssey/IMGs/HighresScreenshot00004.png" },
+            { type: "image", src: "Projects/Otto's%20Odyssey/IMGs/HighresScreenshot00010.png" },
+            { type: "image", src: "Projects/Otto's%20Odyssey/IMGs/modbashkit.png" }
         ],
         fullDescription: `
             Otto's Odyssey is a stylized adventure game. 
@@ -74,6 +74,7 @@ const projects = [
 document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('project-grid');
     const detailContainer = document.getElementById('project-detail');
+    const contactForm = document.getElementById('contact-form');
 
     if (projectGrid) {
         // We are on index.html
@@ -81,16 +82,19 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (detailContainer) {
         // We are on project.html
         loadProjectDetail();
-    } else if (document.getElementById('contact-form')) {
-        // We are on contact.html
-        setupContactForm();
+    }
+
+    // Always check for contact form (independent of other elements)
+    if (contactForm) {
+        setupContactForm(contactForm);
     }
 });
 
-function setupContactForm() {
-    const form = document.getElementById('contact-form');
+function setupContactForm(form) {
+    console.log('Attaching contact form listener');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
+        console.log('Form submitted');
 
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
@@ -101,7 +105,13 @@ function setupContactForm() {
 
         const mailtoLink = `mailto:17rogrady@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-        window.location.href = mailtoLink;
+        try {
+            window.location.href = mailtoLink;
+            console.log('Mailto link triggered');
+        } catch (err) {
+            console.error('Failed to open mail client:', err);
+            alert('Could not open email client. Please email 17rogrady@gmail.com directly.');
+        }
     });
 }
 
