@@ -1,0 +1,17 @@
+{
+    "easternwhitepineforest": {
+    "title": "Eastern White Pine Forest",
+    "year": "2025",
+    "tools": "Maya · Substance Designer · UE5",
+    "medium": "Real-Time Environment",
+    "cover": "https://cdn.myportfolio.com/24776b9b-ed51-4962-ba8f-8ad6ec267cc9/21341fdd-cea6-4191-8f75-2faafa55d0a4_rwc_492x0x2851x1607x1920.png?h=4ff87d08b4820c15f64bfa51d85aab2f",
+    "desc": "Add your project description here. Describe the biome research, foliage pipeline, Lumen lighting approach, and any procedural techniques used to fill the scene.",
+    "specs": [
+        { "label": "Year",        "val": "2025" },
+        { "label": "Engine",      "val": "Unreal Engine 5" },
+        { "label": "Tools",       "val": "Maya, Substance Designer, SpeedTree" },
+        { "label": "Duration",    "val": "Add duration" },
+        { "label": "Foliage",     "val": "Add foliage count" },
+        { "label": "Lighting",    "val": "Lumen GI" }]
+    }
+}
