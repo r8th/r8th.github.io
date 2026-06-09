@@ -1,17 +1,7 @@
 {
     "dungeoncrawl": {
     "title": "Dungeon Crawl",
-    "year": "2025",
-    "tools": "Maya · ZBrush · Substance Painter · UE5",
-    "medium": "Real-Time Environment",
     "cover": "https://cdn.myportfolio.com/24776b9b-ed51-4962-ba8f-8ad6ec267cc9/ae113250-be0d-47f7-a78b-c92765df6d64_rwc_0x0x3615x2038x1920.jpg?h=3e87b81ecefa136950c45037254af51e",
-    "desc": "Add your project description here. Describe the concept, the workflow, technical challenges, and what you learned. This text renders in an elegant serif so a paragraph or two reads beautifully.",
-    "specs": [
-        { "label": "Year",        "val": "2025" },
-        { "label": "Engine",      "val": "Unreal Engine 5" },
-        { "label": "Tools",       "val": "Maya, ZBrush, Substance Painter, UE5" },
-        { "label": "Duration",    "val": "3.5 months" },
-        { "label": "Polygons",    "val": "Nanite" },
-        { "label": "Textures",    "val": "Substance Painter, Substance Designer" }]
+    "desc": "Add your project description here. Describe the concept, the workflow, technical challenges, and what you learned. This text renders in an elegant serif so a paragraph or two reads beautifully."
     }
 }
