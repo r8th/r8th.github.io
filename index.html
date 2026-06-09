@@ -14,8 +14,6 @@
 </head>
 <body>
 
-  <div id="cursor"></div>
-
   <!-- ── NAV ── -->
   <nav>
     <a href="#" class="nav-logo" data-page="home">Ryan O'<span>Grady</span></a>
@@ -438,9 +436,6 @@
         <p>Ringling College of Art &amp; Design</p>
       </footer>
     `;
-
-    // Re-bind cursor hover on new elements
-    bindHovers();
   }
 
   // ══════════════════════════
@@ -524,23 +519,6 @@
     }
   });
 
-  // ══════════════════════════
-  //  CUSTOM CURSOR
-  // ══════════════════════════
-
-  const cursor = document.getElementById("cursor");
-  document.addEventListener("mousemove", e => {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top  = e.clientY + "px";
-  });
-
-  function bindHovers() {
-    document.querySelectorAll("a, button, [data-page], .project-card, .contact-link, .back-btn").forEach(el => {
-      el.addEventListener("mouseenter", () => cursor.classList.add("hovering"));
-      el.addEventListener("mouseleave", () => cursor.classList.remove("hovering"));
-    });
-  }
-  bindHovers();
   </script>
 </body>
 </html>
