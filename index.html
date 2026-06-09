@@ -447,7 +447,17 @@
   //  NAVIGATION
   // ══════════════════════════
 
-  function navigate(pageId, projectId) {
+  function getRoute() {
+    const hash = location.hash.slice(1);
+    if (!hash) return { pageId: 'home', projectId: null };
+    const [pageId, projectId] = hash.split('/');
+    if (pageId === 'project') {
+      return { pageId: 'project', projectId: projectId || null };
+    }
+    return { pageId: pageId || 'home', projectId: null };
+  }
+
+  function navigate(pageId, projectId, updateHash = true) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.querySelectorAll(".nav-links a[data-page]").forEach(a => a.classList.remove("active"));
 
@@ -463,12 +473,34 @@
     const navLink = document.querySelector(`.nav-links a[data-page="${pageId}"]`);
     if (navLink) navLink.classList.add("active");
 
+    if (updateHash) {
+      if (pageId === 'project' && projectId) {
+        location.hash = `#project/${projectId}`;
+      } else {
+        location.hash = `#${pageId}`;
+      }
+    }
+
     if (pageId === "project" && projectId) {
       renderProject(projectId);
     }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  function initRouting() {
+    const route = getRoute();
+    if (route.pageId === 'project' && route.projectId) {
+      navigate(route.pageId, route.projectId, false);
+    } else {
+      navigate(route.pageId, route.projectId, false);
+    }
+  }
+
+  window.addEventListener('hashchange', () => {
+    const route = getRoute();
+    navigate(route.pageId, route.projectId, false);
+  });
 
   // Delegate click events
   document.addEventListener("click", function(e) {
@@ -479,6 +511,8 @@
     const projectId = el.dataset.project || null;
     navigate(pageId, projectId);
   });
+
+  initRouting();
 
   // Keyboard access for project cards
   document.addEventListener("keydown", function(e) {
