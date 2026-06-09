@@ -1,0 +1,17 @@
+{
+    "dungeoncrawl": {
+    "title": "PCG Scatter on Mesh",
+    "year": "2025",
+    "tools": "UE5",
+    "medium": "PCG Tool ",
+    "cover": "https://cdn.myportfolio.com/24776b9b-ed51-4962-ba8f-8ad6ec267cc9/ae113250-be0d-47f7-a78b-c92765df6d64_rwc_0x0x3615x2038x1920.jpg?h=3e87b81ecefa136950c45037254af51e",
+    "desc": "Utilized Unreal Engine 5's PCG tools to create a dynamic scatter-mesh system.",
+    "specs": [
+        { "label": "Year",        "val": "2025" },
+        { "label": "Engine",      "val": "Unreal Engine 5" },
+        { "label": "Tools",       "val": "Unreal Engine 5" },
+        { "label": "Duration",    "val": "Add duration" },
+        { "label": "Polygons",    "val": "Add poly count" },
+        { "label": "Textures",    "val": "Add texture info" }]
+    }
+}
