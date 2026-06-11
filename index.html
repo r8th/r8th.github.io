@@ -259,8 +259,8 @@
 
     dungeoncrawl: {
       title: "Dungeon Crawl",
-      cover: "assets/Thumbnail/dungeoncrawl.png",
-      desc: `Senior thesis project at Ringling College of Art & Design, in collaboration with Neo Mottel. This is a showcase of everything I was responsible for.`,
+      cover: "assets/Projects/dungeoncrawl/SS_05.jpg",
+      desc: `Senior thesis project at Ringling College of Art & Design. This is a showcase of everything I was responsible for.`,
       
       // ── Add your full-res image URLs below ──
       // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
@@ -425,7 +425,7 @@
 
     document.getElementById("project-content").innerHTML = `
       <div class="project-hero">
-        <div class="project-hero-placeholder">Project hero image placeholder</div>
+        ${p.cover ? `<img class="project-hero-img" src="${p.cover}" alt="${p.title} hero image">` : `<div class="project-hero-placeholder">Project hero image placeholder</div>`}
         <div class="project-hero-overlay">
           <p class="project-hero-label">3D Environment</p>
           <h1>${p.title}</h1>
