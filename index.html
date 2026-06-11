@@ -259,8 +259,8 @@
 
     dungeoncrawl: {
       title: "Dungeon Crawl",
-      cover: "https://cdn.myportfolio.com/24776b9b-ed51-4962-ba8f-8ad6ec267cc9/ae113250-be0d-47f7-a78b-c92765df6d64_rwc_0x0x3615x2038x1920.jpg?h=3e87b81ecefa136950c45037254af51e",
-      desc: `Add your project description here. Describe the concept, the workflow, technical challenges, and what you learned. This text renders in an elegant serif so a paragraph or two reads beautifully.`,
+      cover: "assets/Thumbnail/dungeoncrawl.png",
+      desc: `Senior thesis project at Ringling College of Art & Design, in collaboration with Neo Mottel. This is a showcase of everything I was responsible for.`,
       
       // ── Add your full-res image URLs below ──
       // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
@@ -276,15 +276,16 @@
         { src: "assets/Projects/dungeoncrawl/SS_06_Lighting.jpg", alt: "SS_06 — lighting", aspect: "tall" },
         { src: "assets/Projects/dungeoncrawl/AssembledWithDecals.jpg", alt: "Assembled — with decals", aspect: "tall" },
         { src: "assets/Projects/dungeoncrawl/AssembledWithoutDecals.jpg", alt: "Assembled — without decals", aspect: "tall" },
-        { src: "assets/Projects/dungeoncrawl/SetDress.jpg", alt: "Set dressing overview", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/ModKit2.jpg", alt: "Modular kit", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/ModKit.jpg", alt: "Modular kit 2", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/SetDress.jpg", alt: "Set dressing overview", aspect: "tall" },        
         { src: "assets/Projects/dungeoncrawl/Materials.jpg", alt: "Materials sheet", aspect: "square" },
         { src: "assets/Projects/dungeoncrawl/Materials2.jpg", alt: "Materials sheet 2", aspect: "square" },
-        { src: "assets/Projects/dungeoncrawl/ModKit.jpg", alt: "Modular kit", aspect: "square" },
-        { src: "assets/Projects/dungeoncrawl/ModKit2.jpg", alt: "Modular kit 2", aspect: "square" },
-        { src: "assets/Projects/dungeoncrawl/NaniteOpt.jpg", alt: "Nanite optimization", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/Decals.jpg", alt: "Decals sheet", aspect: "square" },                
         { src: "assets/Projects/dungeoncrawl/RGBMaskFlow.jpg", alt: "RGB mask flow", aspect: "square" },
         { src: "assets/Projects/dungeoncrawl/ZbrushProcess.jpg", alt: "ZBrush process", aspect: "square" },
-        { src: "assets/Projects/dungeoncrawl/Decals.jpg", alt: "Decals sheet", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/NaniteOpt.jpg", alt: "Nanite optimization", aspect: "square" },        
+
       ],
       // ── Define gallery rows ──
       // Each row: { cols: N, items: [imageIndex, ...] }
@@ -298,8 +299,9 @@
         // Multiple slider boxes (rendered in order). Each slider shows images by index (from above `images` array) or by direct src.
         sliders: [
           { images: [0,1,2], placement: 'beforeGallery', replace: true },
-          { images: [3,4,5], placement: 'beforeGallery', replace: false },
-          { images: [6,7,8], placement: 'beforeGallery', replace: false },
+          { images: [3,4,5], placement: 'beforeGallery', replace: true },
+          { images: [6,7,8], placement: 'beforeGallery', replace: true },
+          { images: [10,9], placement: 'beforeGallery', replace: true },
         ],
     },
 
