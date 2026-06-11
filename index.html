@@ -265,18 +265,42 @@
       // ── Add your full-res image URLs below ──
       // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
       images: [
-        { src: "assets/Projects/dungeoncrawl/SS_01_Lit.jpg", alt: "Wide establishing shot", aspect: "tall" },
-        { src: "", alt: "Detail shot 1",          aspect: "short" },
-        { src: "", alt: "Detail shot 2",          aspect: "short" },
-        { src: "", alt: "Wireframe / clay render", aspect: "tall" },
-        { src: "", alt: "Texture sheets",          aspect: "square" },
-        { src: "", alt: "Lighting breakdown",      aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/SS_01_Lit.jpg", alt: "SS_01 — lit overview", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_01_UNLIT.jpg", alt: "SS_01 — unlit", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_01_LIGHTING.jpg", alt: "SS_01 — lighting breakdown", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_05.jpg", alt: "SS_05 — shot", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_05_UNLIT.jpg", alt: "SS_05 — unlit", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_05_LIGHTING.jpg", alt: "SS_05 — lighting breakdown", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_06_LIT.jpg", alt: "SS_06 — lit overview", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_06_UNLIT.jpg", alt: "SS_06 — unlit", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SS_06_Lighting.jpg", alt: "SS_06 — lighting", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/AssembledWithDecals.jpg", alt: "Assembled — with decals", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/AssembledWithoutDecals.jpg", alt: "Assembled — without decals", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/SetDress.jpg", alt: "Set dressing overview", aspect: "tall" },
+        { src: "assets/Projects/dungeoncrawl/Materials.jpg", alt: "Materials sheet", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/Materials2.jpg", alt: "Materials sheet 2", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/ModKit.jpg", alt: "Modular kit", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/ModKit2.jpg", alt: "Modular kit 2", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/NaniteOpt.jpg", alt: "Nanite optimization", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/RGBMaskFlow.jpg", alt: "RGB mask flow", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/ZbrushProcess.jpg", alt: "ZBrush process", aspect: "square" },
+        { src: "assets/Projects/dungeoncrawl/Decals.jpg", alt: "Decals sheet", aspect: "square" },
       ],
       // ── Define gallery rows ──
       // Each row: { cols: N, items: [imageIndex, ...] }
       layout: [
         { cols: 1, items: [0] },
       ],
+      // Slider config: change these values to swap images or move placement
+      // images: array of image indices (from this project's images array) or direct src strings
+      // placement: 'beforeGallery' | 'inGallery' (inserts slider as a gallery item)
+      // replace: boolean — when true, images used by the slider are removed from the gallery to avoid duplication
+        // Multiple slider boxes (rendered in order). Each slider shows images by index (from above `images` array) or by direct src.
+        sliders: [
+          { images: [0,1,2], placement: 'beforeGallery', replace: true },
+          { images: [3,4,5], placement: 'beforeGallery', replace: false },
+          { images: [6,7,8], placement: 'beforeGallery', replace: false },
+        ],
     },
 
     pinefore: {
@@ -336,11 +360,60 @@
   function renderProject(id) {
     const p = PROJECTS[id];
     if (!p) return;
+    // Optional configurable sliders (supports multiple sliders via `p.sliders` or single `p.slider`)
+    let sliderHTML = '';
+    const sliderObjects = Array.isArray(p.sliders) ? p.sliders : (p.slider ? [p.slider] : []);
+    const allSliderUsedIndices = [];
+    // build slider HTML blocks in order
+    sliderObjects.forEach((sObj, sIdx) => {
+      if (!sObj || !Array.isArray(sObj.images)) return;
+      const raw = sObj.images;
+      const imgsForSlider = raw.map(item => {
+        if (typeof item === 'number') return p.images[item];
+        if (typeof item === 'string') return { src: item, alt: '' };
+        return item;
+      }).filter(img => img && img.src);
+
+      // collect numeric indices for gallery replacement logic
+      raw.forEach(i => { if (typeof i === 'number') allSliderUsedIndices.push(i); });
+
+      if (imgsForSlider.length) {
+        // create a slider container; no global id — use per-slider classes/data attributes
+        sliderHTML += `<div class="image-slider" data-slider-index="${sIdx}"><div class="slides">` +
+          imgsForSlider.map((img, i) => `<img src="${img.src}" alt="${img.alt || ''}" class="${i===0? 'active' : ''}">`).join('') +
+          `</div><input class="project-slider" data-slider-index="${sIdx}" type="range" min="0" max="${Math.max(0, imgsForSlider.length-1)}" value="0" step="0.01" aria-label="Project image slider"></div>`;
+      }
+    });
 
     // Build gallery rows HTML
     let galleryHTML = `<div class="gallery-grid">`;
-    p.images.forEach(img => {
+    // If sliders specify placement 'inGallery', insert each slider as a gallery item at the top
+    const placementForFirst = (Array.isArray(p.sliders) && p.sliders[0] && p.sliders[0].placement) || (p.slider && p.slider.placement) || 'beforeGallery';
+    const replaceForFirst = (Array.isArray(p.sliders) && p.sliders[0] && p.sliders[0].replace) || (p.slider && p.slider.replace) || false;
+    if (placementForFirst === 'inGallery' && sliderHTML) {
+      // split sliderHTML into individual slider blocks and insert each as its own gallery item
+      const parser = new DOMParser();
+      // simple approach: wrap sliderHTML blocks in gallery items directly
+      // (we'll just insert sliderHTML and then continue building gallery)
+      galleryHTML += sliderHTML.split('</div></div>').map((s, i, arr) => {
+        if (!s.trim()) return '';
+        // reattach the closing tags removed by split (approximate)
+        const block = s + (i < arr.length - 1 ? '</div></div>' : '</div></div>');
+        return `<div class="gallery-item">${block}</div>`;
+      }).join('');
+      // clear sliderHTML so it is not duplicated before the gallery
+      sliderHTML = '';
+    }
+
+    p.images.forEach((img, idx) => {
       if (!img) return;
+      // if any slider requested replacement and includes this index, skip it
+      if (Array.isArray(p.sliders)) {
+        const shouldReplace = p.sliders.some(s => s.replace && Array.isArray(s.images) && s.images.includes(idx));
+        if (shouldReplace) return;
+      } else if (p.slider && p.slider.replace && Array.isArray(p.slider.images) && p.slider.images.includes(idx)) {
+        return;
+      }
       const inner = img.src
         ? `<img src="${img.src}" alt="${img.alt}" loading="lazy">`
         : placeholderHTML(img.alt);
@@ -369,6 +442,7 @@
           <p class="project-desc">${p.desc}</p>
         </div>
 
+        ${sliderHTML}
         <div class="gallery-section">
           <p class="gallery-section-label">Images</p>
           ${galleryHTML}
@@ -380,6 +454,67 @@
         <p>Ringling College of Art &amp; Design</p>
       </footer>
     `;
+
+    // Initialize slider behaviors for any sliders present in the injected project content
+    const sliderContainers = document.querySelectorAll('#project-content .image-slider');
+    sliderContainers.forEach(container => {
+      const sliderInput = container.querySelector('.project-slider');
+      const slidesEl = container.querySelector('.slides');
+      const imgs = slidesEl ? slidesEl.querySelectorAll('img') : [];
+
+      function setAspectFromFirst(img) {
+        if (!img) return;
+        const w = img.naturalWidth || img.width;
+        const h = img.naturalHeight || img.height;
+        if (w && h) {
+          const pct = (h / w) * 100;
+          slidesEl.style.setProperty('--slider-aspect', pct + '%');
+        }
+      }
+
+      const firstImg = imgs[0];
+      if (firstImg) {
+        if (firstImg.complete && firstImg.naturalWidth) {
+          setAspectFromFirst(firstImg);
+        } else {
+          firstImg.addEventListener('load', () => setAspectFromFirst(firstImg));
+        }
+      }
+
+      if (!sliderInput || imgs.length === 0) return;
+
+      // smooth crossfade while dragging: interpolate opacity between neighboring images
+      function handleInput() {
+        const v = parseFloat(sliderInput.value);
+        const max = Math.max(0, imgs.length - 1);
+        const val = Math.max(0, Math.min(max, v));
+        const lo = Math.floor(val);
+        const hi = Math.min(max, Math.ceil(val));
+        const t = val - lo;
+        imgs.forEach((im, i) => {
+          let op = 0;
+          if (i === lo) op = 1 - t;
+          else if (i === hi) op = t;
+          im.style.opacity = op;
+          im.classList.toggle('active', op >= 0.5);
+        });
+      }
+
+      function snapToNearest() {
+        const r = Math.round(parseFloat(sliderInput.value));
+        sliderInput.value = String(r);
+        handleInput();
+      }
+
+      sliderInput.addEventListener('input', handleInput);
+      sliderInput.addEventListener('change', snapToNearest);
+      sliderInput.addEventListener('pointerup', snapToNearest);
+      sliderInput.addEventListener('mouseup', snapToNearest);
+      sliderInput.addEventListener('touchend', snapToNearest);
+
+      // initialize visual state
+      handleInput();
+    });
   }
 
   // ══════════════════════════
