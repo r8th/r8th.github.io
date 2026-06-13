@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        const project_info = {
+            title: "Dungeon Crawl",
+            cover: "assets/Projects/dungeoncrawl/SS_05.jpg",
+            label: "3D Environment",
+            desc: `Senior thesis project at Ringling College of Art & Design. This is a showcase of everything I was responsible for.`,
+
+            // ── Add your full-res image URLs below ──
+            // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
+            images: [
+                { src: "assets/Projects/dungeoncrawl/SS_01_Lit.jpg", alt: "SS_01 — lit overview", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_01_UNLIT.jpg", alt: "SS_01 — unlit", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_01_LIGHTING.jpg", alt: "SS_01 — lighting breakdown", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_05.jpg", alt: "SS_05 — shot", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_05_UNLIT.jpg", alt: "SS_05 — unlit", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_05_LIGHTING.jpg", alt: "SS_05 — lighting breakdown", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_06_LIT.jpg", alt: "SS_06 — lit overview", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_06_UNLIT.jpg", alt: "SS_06 — unlit", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/SS_06_Lighting.jpg", alt: "SS_06 — lighting", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/AssembledWithDecals.jpg", alt: "Assembled — with decals", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/AssembledWithoutDecals.jpg", alt: "Assembled — without decals", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/ModKit2.jpg", alt: "Modular kit", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/ModKit.jpg", alt: "Modular kit 2", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/SetDress.jpg", alt: "Set dressing overview", aspect: "tall" },
+                { src: "assets/Projects/dungeoncrawl/Materials.jpg", alt: "Materials sheet", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/Materials2.jpg", alt: "Materials sheet 2", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/Decals.jpg", alt: "Decals sheet", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/RGBMaskFlow.jpg", alt: "RGB mask flow", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/ZbrushProcess.jpg", alt: "ZBrush process", aspect: "square" },
+                { src: "assets/Projects/dungeoncrawl/NaniteOpt.jpg", alt: "Nanite optimization", aspect: "square" },
+
+            ],
+            // Slider config: change these values to swap images or move placement
+            // images: array of image indices (from this project's images array) or direct src strings
+            // placement: 'beforeGallery' | 'inGallery' (inserts slider as a gallery item)
+            // replace: boolean — when true, images used by the slider are removed from the gallery to avoid duplication
+            // Multiple slider boxes (rendered in order). Each slider shows images by index (from above `images` array) or by direct src.
+            sliders: [
+                { images: [0, 1, 2], placement: 'beforeGallery', replace: true },
+                { images: [3, 4, 5], placement: 'beforeGallery', replace: true },
+                { images: [6, 7, 8], placement: 'beforeGallery', replace: true },
+                { images: [10, 9], placement: 'beforeGallery', replace: true },
+            ],
+        }
+    </script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="project-content">
+        <div class="project-hero">
+            <img class="project-hero-img" src="" alt="Project hero image">
+            <div class="project-hero-overlay">
+                <p class="project-hero-label"></p>
+                <h1 class="project-hero-title"></h1>
+            </div>
+        </div>
+        <div class="project-body">
+            <button class="back-btn" onclick="window.location.href='index.html';">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 2L4 7l5 5"></path>
+                </svg>
+                All Work
+            </button>
+            <div class="project-intro">
+                <p class="project-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="slider.js"></script>
+    <script src="gallery.js"></script>
+    <script>
+        $(".project-hero-img").attr("src", project_info["cover"])
+        $(".project-hero-label").text(project_info["label"])
+        $(".project-hero-title").text(project_info["title"])
+        $(".project-desc").text(project_info["desc"])
+
+        $(document).ready(function () {
+            $("#navbar").load("navbar.html");
+        });
+
+        output = generateSliders(project_info)
+
+        $(".project-body").append(output[1])
+        initSliders()
+
+    </script>
+</body>
+
+</html>

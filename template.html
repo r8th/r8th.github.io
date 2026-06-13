@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        // CHECKLIST FOR FILLING OUT TEMPLATE
+        // [] PROJECT_TITLE | Title of project
+        // [] PROJECT_COVER | Cover image
+        // [] PROJECT_LABEL | Project label (short desc)
+        // [] PROJECT_DESC | Project description (longer desc)
+        // [] IMAGE_SOURCE | Path to source image (usually starting with assets/Projects/<rest_of_path> )
+        // [] ALTERNATE_TEXT | What should be displayed if image cant load
+        // [] ASPECT | Aspect ratio of image, options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
+        // [] LIST_OF_INDEXS_AS_INT | List of indexs of images to use in the slider
+        // [] REPLACE_BOOLEAN | Boolean for if an image in a slider should be shown in the gallery also
+
+
+        const project_info = {
+            title: "PROJECT_TITLE",
+            cover: "PROJECT_COVER",
+            label: "PROJECT_LABEL",
+            desc: "PROJECT_DESC",
+
+            // ── Add your full-res image URLs below ──
+            // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
+            images: [
+                { src: "IMAGE_SOURCE", alt: "ALTERNATE_TEXT", aspect: "ASPECT" },
+            ],
+            // Slider config: change these values to swap images or move placement
+            // images: array of image indices (from this project's images array) or direct src strings
+            // replace: boolean — when true, images used by the slider are removed from the gallery to avoid duplication
+            // Multiple slider boxes (rendered in order). Each slider shows images by index (from above `images` array) or by direct src.
+            sliders: [
+                { images: ["LIST_OF_INDEXS_AS_INT"], replace: 'REPLACE_BOOLEAN' },
+            ],
+        }
+    </script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="project-content">
+        <div class="project-hero">
+            <img class="project-hero-img" src="" alt="Project hero image">
+            <div class="project-hero-overlay">
+                <p class="project-hero-label"></p>
+                <h1 class="project-hero-title"></h1>
+            </div>
+        </div>
+        <div class="project-body">
+            <button class="back-btn" onclick="window.location.href='index.html';">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 2L4 7l5 5"></path>
+                </svg>
+                All Work
+            </button>
+            <div class="project-intro">
+                <p class="project-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="slider.js"></script>
+    <script src="gallery.js"></script>
+    <script>
+
+        $(".project-hero-img").attr("src", project_info["cover"])
+        $(".project-hero-label").text(project_info["label"])
+        $(".project-hero-title").text(project_info["title"])
+        $(".project-desc").text(project_info["desc"])
+
+        $(document).ready(function () {
+            $("#navbar").load("navbar.html");
+        });
+
+        output = generateSliders(project_info)
+
+        $(".project-body").append(output[1])
+        initSliders()
+        $(".project-body").append(generateGallery(output[0], project_info))
+
+    </script>
+</body>
+
+</html>
