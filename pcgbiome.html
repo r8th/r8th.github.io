@@ -1,0 +1,192 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        const project_info = {
+            title: "PCG Biome Generator",
+            cover: "assets/Projects/dungeoncrawl/SS_05.jpg",
+            label: "Tech Art",
+            desc: "A versatile, fully customizable Procedural Content Generation biome built in Unreal Engine 5. Using UE5's PCG framework, the system drives foliage, rocks, trees, and village houses from a single graph — all controlled by landscape material layers, spline masks, and exposed parameters.",
+
+            // ── Add your full-res image URLs below ──
+            // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
+            images: [
+                { src: "assets/Projects/pcgbiome/UE_08.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Ref1.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Ref2.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Ref3.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Landscape1.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Landscape2.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Landscape3.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_01.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Splines.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Splines2.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Overhead.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_01.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_02.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_02.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_03.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_03.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_04.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_04.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_05.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_05.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_07.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Graph_06.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/UE_08.jpg", alt: ""},
+                { src: "assets/Projects/pcgbiome/Parameters1.png", alt: ""},
+                { src: "assets/Projects/pcgbiome/Parameters3.png", alt: ""},
+            ],
+            // Slider config: change these values to swap images or move placement
+            // images: array of image indices (from this project's images array) or direct src strings
+            // replace: boolean — when true, images used by the slider are removed from the gallery to avoid duplication
+            // Multiple slider boxes (rendered in order). Each slider shows images by index (from above `images` array) or by direct src.
+            sliders: [
+            ],
+            blogs: [
+                {
+                    brief: "Preview",
+                    heading: "Preview of the Final Product",
+                    body: "PCG Biome! This is a very versatile and customizable tool which you will be learning how to create step by step.",
+                    images: [0]
+                },
+                {
+                    brief: "Reference",
+                    heading: "Reference",
+                    body: "Reference was based on the Medieval Village Megascans Sample Pack by Quixel Megascans — a single FAB pack containing foliage, houses, props, textures, and materials.",
+                    images: [1, [2, 3]]
+                },
+                {
+                    brief: "Setup",
+                    heading: "Landscape Material",
+                    body: "To get certain assets to spawn on a per material driven layer, multiple textures or material layers can be assigned to a landscape material. Three layers were used here — Grass, Mossy Dirt Rock, and Rock.",
+                    images: [4]
+                },
+                {
+                    brief: "Setup",
+                    heading: "Set Your Material Layer Name",
+                    body: "Label these layers something easily changeable. Avoid specifying the type of material in case changes are needed later — this prevents extra rework down the line.",
+                    images: [[5, 6]]
+                },
+                {
+                    brief: "Terrain",
+                    heading: "Landscape",
+                    body: "Establishing the landscape using default sculpting tools — no height maps were used here. Tools like GAEA or other height map generators can significantly improve terrain realism if desired.",
+                    images: [7]
+                },
+                {
+                    brief: "Splines",
+                    heading: "Splines",
+                    body: "Two splines were drawn — one indicating the location of the pathway, the other defining the general bounds of the biome. Give these actors specific, memorable tags for easy reference later.",
+                    images: [[8, 9], 10]
+                },
+                {
+                    brief: "PCG Graph",
+                    heading: "Create PCG",
+                    body: [
+                        "A PCG Graph is created and dropped into the map. Starting with the path — get the spline location, sample and project the spline to the landscape, then adjust the bounds, points, and add slight noise.",
+                        "The bounds are scaled and rerouted to create a mask of the path. This mask becomes the foundation that all other layers reference."
+                    ],
+                    images: [11, 12]
+                },
+                {
+                    brief: "Foliage",
+                    heading: "Foliage",
+                    body: "Multiple layers of foliage create more realistic coverage. Sample the landscape, transform the points to a slightly larger scale, filter, then difference the path and the foliage. This process is repeated for wheat grass, overall grass coverage, and tall grass — each with different breakup characteristics.",
+                    images: [13, 14]
+                },
+                {
+                    brief: "Foliage",
+                    heading: "Additional Foliage and Flowers",
+                    body: "Using the same logic as the base foliage pass with different settings and scalars, extra foliage and flowers are added. This step dramatically improves coverage accuracy relative to real-world reference.",
+                    images: [15, 16]
+                },
+                {
+                    brief: "Rocks",
+                    heading: "Rocks",
+                    body: [
+                        "Points are sampled and projected to the landscape, then filtered to only spawn on the rock material layer — preventing overlap with foliage. Points within the vicinity of trees and houses are also masked out.",
+                        "To keep rocks to cliff-side areas, Height to Density is used to mask rocks out of the lower terrain. This node is extremely versatile and well worth learning."
+                    ],
+                    images: [17, 18]
+                },
+                {
+                    brief: "Trees",
+                    heading: "Trees",
+                    body: [
+                        "Two tree location sets — one for lower terrain and one for hilltops and mountains. Height to Density is used again to cleanly clear out unwanted areas.",
+                        "Rerouting the bounds is critical here — it's the saving grace of the whole graph's performance."
+                    ],
+                    images: [19, 20]
+                },
+                {
+                    brief: "Houses",
+                    heading: "Houses",
+                    body: "The same process used for trees applies to the village houses — spline-bound sampling, Height to Density masking, and bounds rerouting.",
+                    images: [21, 22]
+                },
+                {
+                    brief: "Parameters",
+                    heading: "Parameters",
+                    body: "Parameters can be created within the PCG Graph to expose control over frequency, scale, rotation, seed, and much more — all editable without opening the graph itself.",
+                    images: [[23, 24]]
+                },
+            ],
+        }
+    </script>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <div id="project-content">
+        <div class="project-hero">
+            <img class="project-hero-img" src="" alt="Project hero image">
+            <div class="project-hero-overlay">
+                <p class="project-hero-label"></p>
+                <h1 class="project-hero-title"></h1>
+            </div>
+        </div>
+        <div class="project-body">
+            <button class="back-btn" onclick="window.location.href='index.html';">
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M9 2L4 7l5 5"></path>
+                </svg>
+                All Work
+            </button>
+            <div class="project-intro">
+                <p class="project-desc"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="slider.js"></script>
+    <script src="gallery.js"></script>
+    <script src="blog.js"></script>
+    <script>
+
+        $(".project-hero-img").attr("src", project_info["cover"])
+        $(".project-hero-label").text(project_info["label"])
+        $(".project-hero-title").text(project_info["title"])
+        $(".project-desc").text(project_info["desc"])
+
+        $(document).ready(function () {
+            $("#navbar").load("navbar.html");
+        });
+
+        // output = generateSliders(project_info)
+
+        // $(".project-body").append(output[1])
+        // initSliders()
+        // $(".project-body").append(generateGallery(output[0], project_info))
+        $(".project-body").append(generateBlogs(project_info))
+    </script>
+</body>
+
+</html>
