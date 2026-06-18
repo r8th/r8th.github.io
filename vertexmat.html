@@ -10,39 +10,32 @@
     <script>
 
         const project_info = {
-            title: "PCG Biome Generator",
-            cover: "assets/Projects/dungeoncrawl/SS_05.jpg",
+            title: "Height Blend / Vertex Paint Material",
+            cover: "assets/projects/vertexmat/FinalShot.PNG",
             label: "Tech Art",
-            desc: "A versatile, fully customizable Procedural Content Generation biome built in Unreal Engine 5. Using UE5's PCG framework, the system drives foliage, rocks, trees, and village houses from a single graph — all controlled by landscape material layers, spline masks, and exposed parameters.",
+            desc: "A breakdown of a height blend and vertex paint material created in Unreal Engine 5. This project supports vertex painting using Virtual Textures on Nanite meshes mixed with WPO to give a great deal of displacement.",
 
             // ── Add your full-res image URLs below ──
             // aspect options: "tall" (16:9)  "short" (4:3)  "square" (1:1)
             images: [
-                { src: "assets/Projects/pcgbiome/UE_08.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Ref1.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Ref2.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Ref3.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Landscape1.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Landscape2.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Landscape3.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_01.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Splines.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Splines2.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Overhead.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_01.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_02.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_02.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_03.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_03.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_04.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_04.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_05.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_05.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_07.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Graph_06.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/UE_08.jpg", alt: ""},
-                { src: "assets/Projects/pcgbiome/Parameters1.png", alt: ""},
-                { src: "assets/Projects/pcgbiome/Parameters3.png", alt: ""},
+                { src: "assets/Projects/vertexmat/Graph_01.PNG", alt: "0"},
+                { src: "assets/Projects/vertexmat/Graph_02.PNG", alt: "1"},
+                { src: "assets/Projects/vertexmat/Graph_03.PNG", alt: "2"},
+                { src: "assets/Projects/vertexmat/Graph_04.PNG", alt: "3"},
+                { src: "assets/Projects/vertexmat/Graph_05.PNG", alt: "4"},
+                { src: "assets/Projects/vertexmat/Graph_06.PNG", alt: "5"},
+                { src: "assets/Projects/vertexmat/Graph_07.PNG", alt: "6"},
+                { src: "assets/Projects/vertexmat/Graph_08.PNG", alt: "7"},
+                { src: "assets/Projects/vertexmat/M4.PNG", alt: "8"},
+                { src: "assets/Projects/vertexmat/Ma1.PNG", alt: "9"},
+                { src: "assets/Projects/vertexmat/Ma2.PNG", alt: "10"},
+                { src: "assets/Projects/vertexmat/Ma3.PNG", alt: "11"},
+                { src: "assets/Projects/vertexmat/MaterialFunction.PNG", alt: "12"},
+                { src: "assets/Projects/vertexmat/Ref1.PNG", alt: "13"},
+                { src: "assets/Projects/vertexmat/Ref2.PNG", alt: "14"},
+                { src: "assets/Projects/vertexmat/Ref3.PNG", alt: "15"},
+                { src: "assets/Projects/vertexmat/rogrady_vertexpaint.gif", alt: "16"},
+                { src: "assets/Projects/vertexmat/FinalShot.PNG", alt: "17"},
             ],
             // Slider config: change these values to swap images or move placement
             // images: array of image indices (from this project's images array) or direct src strings
@@ -54,89 +47,56 @@
                 {
                     brief: "Preview",
                     heading: "Preview of the Final Product",
-                    body: "PCG Biome! This is a very versatile and customizable tool which you will be learning how to create step by step.",
-                    images: [0]
+                    body: "There are a few ways to create vertex paint materials in UE5. In this blog I will show you how I created a Old Road material utilizing multi-texture height lerping as well as using virtual textures to create paintable layer masks!. One thing I knkew I wanted to do was maximize the amount of height variation and displacement as I could.",
+                    images: [17]
                 },
                 {
                     brief: "Reference",
                     heading: "Reference",
-                    body: "Reference was based on the Medieval Village Megascans Sample Pack by Quixel Megascans — a single FAB pack containing foliage, houses, props, textures, and materials.",
-                    images: [1, [2, 3]]
+                    body: "Reference for our project - Worn cobblestone / brick path had had been overgrown with moss and dirt.",
+                    images: [[13, 14, 15]]
                 },
                 {
-                    brief: "Setup",
-                    heading: "Landscape Material",
-                    body: "To get certain assets to spawn on a per material driven layer, multiple textures or material layers can be assigned to a landscape material. Three layers were used here — Grass, Mossy Dirt Rock, and Rock.",
-                    images: [4]
+                    brief: "Material Function",
+                    heading: "Creating a basic Material Function",
+                    body: "To start this off I knew I wanted to utilize material functions where I could. I create a fairly simple function that handles all of our textures that we will be using, tile scaling, base color tint, Vertex WPO, and some quick on the fly parameter controls for roughness, normal weight, and ambient occlusion.",
+                    images: [0]
                 },
                 {
-                    brief: "Setup",
-                    heading: "Set Your Material Layer Name",
-                    body: "Label these layers something easily changeable. Avoid specifying the type of material in case changes are needed later — this prevents extra rework down the line.",
-                    images: [[5, 6]]
-                },
-                {
-                    brief: "Terrain",
-                    heading: "Landscape",
-                    body: "Establishing the landscape using default sculpting tools — no height maps were used here. Tools like GAEA or other height map generators can significantly improve terrain realism if desired.",
+                    brief: "Master Material",
+                    heading: "Setting up a Master Material",
+                    body: "Once we have created our Material Function (MF_MaterialController) You can then create your main material that will act as our master. Drag MF_MaterialController into your graph and here you can start to add in all of your scalar parameters, and texture objects for Material / Layer 1- Easy enough... Once done,  create a named reroute node for both the resulted material output, as well as the displacement texture which we will use to get a mask for our layer blend. ",
                     images: [7]
                 },
                 {
-                    brief: "Splines",
-                    heading: "Splines",
-                    body: "Two splines were drawn — one indicating the location of the pathway, the other defining the general bounds of the biome. Give these actors specific, memorable tags for easy reference later.",
-                    images: [[8, 9], 10]
+                    brief: "Tip!",
+                    heading: "Use additional Vertex Offset for things like grout or cracks!",
+                    body: "Since you can sometimes get undesirable results using tessellation displacement, using a lower displacement value and offsetting the vertex in a negative value (if your mesh is high enough resolution, but for the sake of learning I used a high poly mesh).  You can do this all within your  material function and either duplicate and add WPO, or use switch parameters to allow you to turn it on and off! This grants a little more control over certain displacement while maintaining a crisp texture.",
+                    images: [2]
                 },
                 {
-                    brief: "PCG Graph",
-                    heading: "Create PCG",
-                    body: [
-                        "A PCG Graph is created and dropped into the map. Starting with the path — get the spline location, sample and project the spline to the landscape, then adjust the bounds, points, and add slight noise.",
-                        "The bounds are scaled and rerouted to create a mask of the path. This mask becomes the foundation that all other layers reference."
-                    ],
-                    images: [11, 12]
+                    brief: "Layers",
+                    heading: "Create your layers.",
+                    body: "Depending on how many layers you want, duplicate the step above and create your layer for each needed material. In this case we have a four layer blend.",
+                    images: [1]
                 },
                 {
-                    brief: "Foliage",
-                    heading: "Foliage",
-                    body: "Multiple layers of foliage create more realistic coverage. Sample the landscape, transform the points to a slightly larger scale, filter, then difference the path and the foliage. This process is repeated for wheat grass, overall grass coverage, and tall grass — each with different breakup characteristics.",
-                    images: [13, 14]
+                    brief: "Height Blend",
+                    heading: "Using HeightLerpWithTwoHeighMaps to control our height blending.",
+                    body: "Using HeightLerpWithTwoHeightMaps, we can blend our rerouted Height channel for the first two materials. Using a parameter, we can control the contrast of the blend. I then did the same thing but we take the result of our blended height, and use that for our next layer. You can follow this format for all your layers. I decided to reroute the Alpha result so I could utilize this in other areas if needed.",
+                    images: [16]
                 },
-                {
-                    brief: "Foliage",
-                    heading: "Additional Foliage and Flowers",
-                    body: "Using the same logic as the base foliage pass with different settings and scalars, extra foliage and flowers are added. This step dramatically improves coverage accuracy relative to real-world reference.",
-                    images: [15, 16]
+                 {
+                    brief: "Vertex Paint",
+                    heading: "Using Virtual Textures to create paintable masks.",
+                    body: "After you have set that up, you should be ready to go! Just make sure your mesh has adequate density to support the amount of displacement needed. You can reuse this material as many time as you want for all sorts of different mod kit assets!",
+                    images: [6]
                 },
-                {
-                    brief: "Rocks",
-                    heading: "Rocks",
-                    body: [
-                        "Points are sampled and projected to the landscape, then filtered to only spawn on the rock material layer — preventing overlap with foliage. Points within the vicinity of trees and houses are also masked out.",
-                        "To keep rocks to cliff-side areas, Height to Density is used to mask rocks out of the lower terrain. This node is extremely versatile and well worth learning."
-                    ],
-                    images: [17, 18]
-                },
-                {
-                    brief: "Trees",
-                    heading: "Trees",
-                    body: [
-                        "Two tree location sets — one for lower terrain and one for hilltops and mountains. Height to Density is used again to cleanly clear out unwanted areas.",
-                        "Rerouting the bounds is critical here — it's the saving grace of the whole graph's performance."
-                    ],
-                    images: [19, 20]
-                },
-                {
-                    brief: "Houses",
-                    heading: "Houses",
-                    body: "The same process used for trees applies to the village houses — spline-bound sampling, Height to Density masking, and bounds rerouting.",
-                    images: [21, 22]
-                },
-                {
-                    brief: "Parameters",
-                    heading: "Parameters",
-                    body: "Parameters can be created within the PCG Graph to expose control over frequency, scale, rotation, seed, and much more — all editable without opening the graph itself.",
-                    images: [[23, 24]]
+                 {
+                    brief: "Final Product",
+                    heading: "The Final Product!",
+                    body: "Examples of how you can use this material with virtex paint, or just use height blend to drive your material variation. It is very versitile!",
+                    images: [[0,0]]
                 },
             ],
         }
