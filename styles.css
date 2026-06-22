@@ -687,6 +687,7 @@ nav {
 .pcg-img-block img,
 .pcg-img-block video,
 .pcg-img-row img { width: 100%; height: auto; display: block; }
+.pcg-img-row video { width: 100%; height: auto; display: block; }
 .pcg-img-block .img-placeholder { aspect-ratio: 16/9; min-height: unset; }
 
 .pcg-img-row {
