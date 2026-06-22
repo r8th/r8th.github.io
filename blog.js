@@ -7,7 +7,10 @@ function generateBlogs(p) {
         num = num.toString().padStart(2, '0')
         blogHTMLOutput +=  `<p class='pcg-section-num'>${num} — ${bObj.brief}</p>`
         blogHTMLOutput += `<h2 class="pcg-section-heading">${bObj.heading}</h2>`
-        if (typeof bObj.body === "string") {
+        
+        console.log(bIdx)
+        console.log(typeof bObj.body)
+        if ((typeof bObj.body) === "string") {
             blogHTMLOutput += `<p class="pcg-section-body">${bObj.body}</p>`
         } else {
             bObj.body.forEach((paragraph) => {
